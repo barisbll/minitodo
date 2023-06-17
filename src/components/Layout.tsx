@@ -1,6 +1,5 @@
 import Head from "next/head";
-import Header from "../sections/Header";
-import Footer from "../sections/Footer";
+import Header from "~/sections/Header";
 import { type ReactNode } from "react";
 
 type LayoutProps = {
@@ -11,16 +10,12 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Head>
-        <title>Next Tailwind Theme</title>
-        <meta
-          name="description"
-          content="Create dark mode in next and tailwind"
-        />
+        <title>Todo-T3</title>
+        <meta name="description" content="A Todo app built with t3 stack." />
       </Head>
-      <div className="flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+      <Header />
+      <div className="flex h-screen flex-col">
+        {/* <main className="flex-grow">{children}</main> */}
       </div>
     </>
   );
