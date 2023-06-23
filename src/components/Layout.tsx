@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Header } from "~/sections/Header";
 import { type ReactNode } from "react";
-import { Todo } from "~/sections/Todo";
+import { TodoSection } from "~/sections/Todo";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 
@@ -18,7 +18,7 @@ export const Layout = ({ children }: LayoutProps) => {
       </Head>
       <Header />
       <div className="flex flex-grow justify-center">
-        <Todo />
+        <TodoSection />
       </div>
       {/* <AuthShowcase /> */}
     </>
