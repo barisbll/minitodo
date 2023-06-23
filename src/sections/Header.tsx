@@ -9,25 +9,25 @@ export const Header = () => {
 
   useEffect(() => setMounted(true), []);
 
+  const toggleTheme = () =>
+    theme === "light" ? setTheme("dark") : setTheme("light");
+
   const renderThemeChanger = () => {
     if (!mounted) return null;
-
-    const toggleTheme = () =>
-      theme === "light" ? setTheme("dark") : setTheme("light");
 
     const currentTheme = theme === "system" ? systemTheme : theme;
 
     if (currentTheme === "dark") {
       return (
         <MoonStar
-          className="h-9 w-9 cursor-pointer transition hover:scale-110"
+          className="h-9 w-9 cursor-pointer transition hover:scale-110 max-sm:hidden"
           onClick={toggleTheme}
         />
       );
     } else {
       return (
         <Sun
-          className="h-9 w-9 cursor-pointer transition hover:scale-110"
+          className="h-9 w-9 cursor-pointer transition hover:scale-110 max-sm:hidden"
           onClick={toggleTheme}
         />
       );
@@ -43,7 +43,7 @@ export const Header = () => {
       </div>
       <div className="col-span-1 col-start-3 flex items-center gap-x-4 justify-self-end">
         {renderThemeChanger()}
-        <AccountMenu />
+        <AccountMenu theme={theme} toggleTheme={toggleTheme} />
       </div>
     </div>
   );

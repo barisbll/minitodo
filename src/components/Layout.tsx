@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Header } from "~/sections/Header";
 import { type ReactNode } from "react";
+import { Todo } from "~/sections/Todo";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 
@@ -8,7 +9,7 @@ type LayoutProps = {
   children: ReactNode;
 };
 
-const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Head>
@@ -16,10 +17,10 @@ const Layout = ({ children }: LayoutProps) => {
         <meta name="description" content="A Todo app built with t3 stack." />
       </Head>
       <Header />
-      <div className="flex h-screen flex-col">
-        {/* <main className="flex-grow">{children}</main> */}
-        <AuthShowcase />
+      <div className="flex flex-grow justify-center">
+        <Todo />
       </div>
+      {/* <AuthShowcase /> */}
     </>
   );
 };
@@ -47,5 +48,3 @@ const AuthShowcase: React.FC = () => {
     </div>
   );
 };
-
-export default Layout;
