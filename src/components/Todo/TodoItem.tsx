@@ -1,4 +1,4 @@
-import { Checkbox } from "@radix-ui/react-checkbox";
+import { Checkbox } from "~/components/shadcn-ui/checkbox";
 import { useState } from "react";
 import { cn } from "~/lib/utils";
 import { More } from "./TodoMore";
@@ -6,8 +6,6 @@ import { type TodoWithUser } from "./Todo.type";
 
 export const TodoItem = (todoWithUser: TodoWithUser) => {
   const [checked, setChecked] = useState(todoWithUser.done);
-
-  console.log(todoWithUser);
 
   const handleCheckboxChange = () => {
     setChecked((prev) => !prev);
