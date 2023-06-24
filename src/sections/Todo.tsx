@@ -57,13 +57,15 @@ export const TodoSection = () => {
       </TabsList>
       <TabsContent value="all" className="flex flex-col justify-center">
         <TodoBar />
-        <TodoList todoItems={todoItems} />
+        <TodoList todoItems={todoItems} listMode="all" />
       </TabsContent>
-      <TabsContent value="active" className="flex justify-center">
+      <TabsContent value="active" className="flex flex-col justify-center">
         <TodoBar />
+        <TodoList todoItems={todoItems} listMode="active" />
       </TabsContent>
-      <TabsContent value="completed" className="flex justify-center">
+      <TabsContent value="completed" className="flex flex-col justify-center">
         <TodoBar />
+        <TodoList todoItems={todoItems} listMode="completed" />
       </TabsContent>
     </Tabs>
   );

@@ -3,14 +3,34 @@ import { TodoItem } from "./TodoItem";
 
 type TodoListProps = {
   todoItems: TodoWithUser[];
+  listMode?: "all" | "active" | "completed";
 };
 
-export const TodoList = ({ todoItems }: TodoListProps) => {
+const renderByMode = (
+  item: TodoWithUser,
+  listMode: TodoListProps["listMode"]
+) => {
+  switch (listMode) {
+    case "active":
+      if (item.done) {
+        return null;
+      }
+      break;
+    case "completed":
+      if (!item.done) {
+        return null;
+      }
+      break;
+    default:
+      break;
+  }
+  return <TodoItem key={item.id} {...item} />;
+};
+
+export const TodoList = ({ todoItems, listMode }: TodoListProps) => {
   return (
     <div className="flex w-full flex-col items-center px-4">
-      {todoItems.map((item) => (
-        <TodoItem {...item} key={item.id} />
-      ))}
+      {todoItems.map((item) => renderByMode(item, listMode))}
     </div>
   );
 };
