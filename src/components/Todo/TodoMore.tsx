@@ -1,5 +1,4 @@
 import { Trash, Pencil, MoreHorizontal, Copy } from "lucide-react";
-
 import { Button } from "~/components/shadcn-ui/button";
 import {
   DropdownMenu,
@@ -9,9 +8,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/shadcn-ui/dropdown-menu";
-import { type TodoWithUser } from "./Todo.type";
+import { type Dispatch, useCallback } from "react";
 
-export function More(_: TodoWithUser) {
+import { type TodoWithUser } from "./Todo.type";
+import { type MoreState, type MoreAction } from "./TodoItem";
+
+type TodoMoreProps = {
+  todoWithUser: TodoWithUser;
+  moreState: MoreState;
+  moreStateDispatch: Dispatch<MoreAction>;
+};
+
+export function TodoMore(props: TodoMoreProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -28,7 +36,11 @@ export function More(_: TodoWithUser) {
             <Pencil className="mr-2 h-4 w-4" />
             <span>Edit</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={useCallback(() => {
+              props.moreStateDispatch({ type: "copy", state: true });
+            }, [props])}
+          >
             <Copy className="mr-2 h-4 w-4" />
             <span>Copy</span>
           </DropdownMenuItem>
