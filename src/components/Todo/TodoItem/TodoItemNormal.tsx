@@ -18,7 +18,6 @@ export const TodoItemNormal = ({
   todoWithUser,
 }: TodoItemNormalProps) => {
   const [checked, setChecked] = useState(todoWithUser.done);
-  console.log(todoWithUser);
 
   const handleCheckboxChange = useCallback(() => {
     setChecked((prev) => !prev);

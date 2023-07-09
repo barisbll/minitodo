@@ -28,7 +28,6 @@ type AccountMenuProps = {
 
 export function AccountMenu({ theme, toggleTheme }: AccountMenuProps) {
   const { data: sessionData } = useSession();
-  console.log(sessionData?.user.image);
 
   return (
     <div className={cn({ hidden: !sessionData?.user })}>

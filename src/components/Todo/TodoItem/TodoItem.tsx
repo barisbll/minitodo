@@ -78,8 +78,6 @@ export const TodoItem = (todoWithUser: TodoWithUser) => {
     }
   }, [moreState, toast, todoWithUser.content]);
 
-  console.log("moreState", moreState);
-
   return !moreState.isEditing ? (
     <TodoItemNormal
       moreReducerDispatch={moreReducerDispatch}
