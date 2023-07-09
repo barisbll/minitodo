@@ -1,10 +1,9 @@
-import { type Reducer, useState, useReducer, useEffect } from "react";
+import { type Reducer, useState, useReducer, useEffect, useRef } from "react";
 
-import { Checkbox } from "~/components/shadcn-ui/checkbox";
 import { useToast } from "~/components/shadcn-ui/use-toast";
-import { cn } from "~/lib/utils";
-import { TodoMore } from "./TodoMore";
-import { type TodoWithUser } from "./Todo.type";
+import { type TodoWithUser } from "../Todo.type";
+import { TodoItemEdit } from "./TodoItemEdit";
+import { TodoItemNormal } from "./TodoItemNormal";
 
 const initialState = {
   isEditing: false,
@@ -30,27 +29,29 @@ const moreReducer = (state: MoreState, action: MoreAction) => {
       return state;
   }
 };
+const handleCopy = async (text: string) => {
+  if ("clipboard" in navigator) {
+    return await navigator.clipboard.writeText(text);
+  } else {
+    // legacy method used as a fallback method
+    return document.execCommand("copy", true, text);
+  }
+};
 
 export const TodoItem = (todoWithUser: TodoWithUser) => {
-  const [checked, setChecked] = useState(todoWithUser.done);
-  const [moreState, moreStateDispatch] = useReducer<
+  const [moreState, moreReducerDispatch] = useReducer<
     Reducer<MoreState, MoreAction>
   >(moreReducer, initialState);
   const { toast } = useToast();
+  const editRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const handleCopy = async (text: string) => {
-      if ("clipboard" in navigator) {
-        return await navigator.clipboard.writeText(text);
-      } else {
-        // legacy method used as a fallback method
-        return document.execCommand("copy", true, text);
-      }
-    };
-
     switch (true) {
       case moreState.isEditing:
-        console.log("Editing");
+        if (editRef.current) {
+          editRef.current.value = todoWithUser.content;
+          editRef.current.focus();
+        }
         break;
       case moreState.isDeleting:
         console.log("Deleting");
@@ -59,7 +60,7 @@ export const TodoItem = (todoWithUser: TodoWithUser) => {
         void handleCopy(todoWithUser.content)
           .then(() => {
             toast({
-              title: "Success",
+              title: "Success 👏",
               description: `Copied to clipboard "${todoWithUser.content}"`,
             });
           })
@@ -71,36 +72,25 @@ export const TodoItem = (todoWithUser: TodoWithUser) => {
             });
           })
           .finally(() => {
-            moreStateDispatch({ type: "copy", state: false });
+            moreReducerDispatch({ type: "copy", state: false });
           });
         break;
     }
   }, [moreState, toast, todoWithUser.content]);
 
-  const handleCheckboxChange = () => {
-    setChecked((prev) => !prev);
-  };
+  console.log("moreState", moreState);
 
-  return (
-    <div className="flex w-full items-center justify-between px-6 py-2 md:w-2/3 lg:w-2/3 xl:w-1/2">
-      <div className="flex items-center space-x-2">
-        <Checkbox
-          id={todoWithUser.id}
-          checked={checked}
-          onClick={handleCheckboxChange}
-        />
-        <label
-          htmlFor={todoWithUser.id}
-          className={cn({ "line-through": checked, "cursor-pointer": true })}
-        >
-          {todoWithUser.content}
-        </label>
-      </div>
-      <TodoMore
-        todoWithUser={todoWithUser}
-        moreState={moreState}
-        moreStateDispatch={moreStateDispatch}
-      />
-    </div>
+  return !moreState.isEditing ? (
+    <TodoItemNormal
+      moreReducerDispatch={moreReducerDispatch}
+      moreState={moreState}
+      todoWithUser={todoWithUser}
+    />
+  ) : (
+    <TodoItemEdit
+      editRef={editRef}
+      moreReducerDispatch={moreReducerDispatch}
+      todoWithUser={todoWithUser}
+    />
   );
 };

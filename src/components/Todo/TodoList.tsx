@@ -1,5 +1,5 @@
 import { type TodoWithUser } from "./Todo.type";
-import { TodoItem } from "./TodoItem";
+import { TodoItem } from "./TodoItem/TodoItem";
 
 type TodoListProps = {
   todoItems: TodoWithUser[];
