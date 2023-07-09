@@ -1,5 +1,7 @@
-import { Checkbox } from "~/components/shadcn-ui/checkbox";
 import { type Reducer, useState, useReducer, useEffect } from "react";
+
+import { Checkbox } from "~/components/shadcn-ui/checkbox";
+import { useToast } from "~/components/shadcn-ui/use-toast";
 import { cn } from "~/lib/utils";
 import { TodoMore } from "./TodoMore";
 import { type TodoWithUser } from "./Todo.type";
@@ -34,12 +36,14 @@ export const TodoItem = (todoWithUser: TodoWithUser) => {
   const [moreState, moreStateDispatch] = useReducer<
     Reducer<MoreState, MoreAction>
   >(moreReducer, initialState);
+  const { toast } = useToast();
 
   useEffect(() => {
     const handleCopy = async (text: string) => {
       if ("clipboard" in navigator) {
         return await navigator.clipboard.writeText(text);
       } else {
+        // legacy method used as a fallback method
         return document.execCommand("copy", true, text);
       }
     };
@@ -52,15 +56,26 @@ export const TodoItem = (todoWithUser: TodoWithUser) => {
         console.log("Deleting");
         break;
       case moreState.isCopying:
-        console.log("Copying");
-        console.log(todoWithUser);
-        void handleCopy(todoWithUser.content).then(() => {
-          console.log("Copied");
-        });
-        moreStateDispatch({ type: "copy", state: false });
+        void handleCopy(todoWithUser.content)
+          .then(() => {
+            toast({
+              title: "Success",
+              description: `Copied to clipboard "${todoWithUser.content}"`,
+            });
+          })
+          .catch(() => {
+            toast({
+              variant: "destructive",
+              title: "Uh oh! Something went wrong.",
+              description: "There was a problem while copying the text.",
+            });
+          })
+          .finally(() => {
+            moreStateDispatch({ type: "copy", state: false });
+          });
         break;
     }
-  }, [moreState]);
+  }, [moreState, toast, todoWithUser.content]);
 
   const handleCheckboxChange = () => {
     setChecked((prev) => !prev);

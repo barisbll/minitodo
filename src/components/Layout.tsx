@@ -4,6 +4,7 @@ import { type ReactNode } from "react";
 import { TodoSection } from "~/sections/Todo";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
+import { Toaster } from "~/components/shadcn-ui/toaster";
 
 type LayoutProps = {
   children: ReactNode;
@@ -20,6 +21,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <div className="flex flex-grow justify-center">
         <TodoSection />
       </div>
+      <Toaster />
       {/* <AuthShowcase /> */}
     </>
   );
