@@ -51,9 +51,9 @@ const todoItems: TodoWithUser[] = [
 ];
 
 const Todo = () => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
-  console.log("checking", { session, status });
+  // const todoItems = api.todo.findMany.useQuery("todos");
 
   if (status === "loading") {
     return <div>Loading...</div>;
