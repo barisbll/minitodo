@@ -1,45 +1,20 @@
 import { z } from "zod";
-import { type TodoWithUser } from "~/components/Todo/Todo.type";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
-type FindAllSuccessResponse = {
-  isError: false;
-  content: TodoWithUser[];
-};
-
-type FindAllErrorResponse = {
-  isError: true;
-  content: Error;
-};
-
-type FindAllResponse = FindAllSuccessResponse | FindAllErrorResponse;
-
 export const todoRouter = createTRPCRouter({
-  findAll: protectedProcedure.query(
-    async ({ ctx }): Promise<FindAllResponse> => {
-      try {
-        const todos = await ctx.prisma.todo.findMany({
-          include: {
-            author: {
-              select: {
-                name: true,
-                id: true,
-              },
-            },
+  findAll: protectedProcedure.query(async ({ ctx }) => {
+    const todos = await ctx.prisma.todo.findMany({
+      include: {
+        author: {
+          select: {
+            name: true,
+            id: true,
           },
-        });
-        return {
-          isError: false,
-          content: todos,
-        };
-      } catch (error) {
-        return {
-          isError: true,
-          content: error as Error,
-        };
-      }
-    }
-  ),
+        },
+      },
+    });
+    return todos;
+  }),
   create: protectedProcedure
     .input(z.object({ content: z.string() }))
     .mutation(async ({ ctx, input }) => {

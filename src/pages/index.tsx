@@ -53,7 +53,33 @@ const todoItems: TodoWithUser[] = [
 const Todo = () => {
   const { status } = useSession();
   const router = useRouter();
-  // const todoItems = api.todo.findMany.useQuery("todos");
+  // use useQuery advantages like onSuccess onLoading etc.
+  const {
+    isLoading,
+    data: todoItems,
+    isError,
+    error,
+  } = api.todo.findAll.useQuery();
+
+  if (isError) {
+    console.error(error);
+    return (
+      <div className="flex w-full flex-col items-center px-4">
+        <p>Something went wrong while trying to fetch todos :( </p>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    // TODO: Add a good loader
+    return (
+      <div className="flex w-full flex-col items-center px-4">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
+  console.log("todoItems", todoItems);
 
   if (status === "loading") {
     return <div>Loading...</div>;

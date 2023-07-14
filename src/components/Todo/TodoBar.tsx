@@ -1,19 +1,24 @@
+import { useCallback, useState } from "react";
 import { Button } from "../shadcn-ui/button";
 import { Input } from "../shadcn-ui/input";
 import { api } from "~/utils/api";
-import { useCallback, useState } from "react";
+import { useToast } from "~/components/shadcn-ui/use-toast";
 
 export const TodoBar = () => {
   const [todo, setTodo] = useState("");
+  const { toast } = useToast();
   // TODO: Later add logic to adding todo by invalidating the get todos query
   const addTodo = api.todo.create.useMutation({
     onSuccess: () => {
       setTodo("");
-      console.log("Added todo");
     },
-    onError: (error) => {
-      // TODO: Add error toast
-      console.log(error);
+    onError: () => {
+      toast({
+        variant: "destructive",
+        title: "Error while creating todo",
+        description:
+          "There was an error while saving todo. Please try again later.",
+      });
     },
   });
 
@@ -25,7 +30,7 @@ export const TodoBar = () => {
   );
 
   const handleAddTodo = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
+    (_: React.MouseEvent<HTMLElement>) => {
       addTodo.mutate({
         content: todo,
       });

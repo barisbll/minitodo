@@ -1,4 +1,4 @@
-import { type Reducer, useState, useReducer, useEffect, useRef } from "react";
+import { type Reducer, useReducer, useEffect, useRef } from "react";
 
 import { useToast } from "~/components/shadcn-ui/use-toast";
 import { type TodoWithUser } from "../Todo.type";
