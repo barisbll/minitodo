@@ -1,6 +1,5 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { type TodoWithUser } from "~/components/Todo/Todo.type";
 import { TodoBar } from "~/components/Todo/TodoBar";
 import { TodoList } from "~/components/Todo/TodoList";
 import {
@@ -11,49 +10,9 @@ import {
 } from "~/components/shadcn-ui/tabs";
 import { api } from "~/utils/api";
 
-const todoItems: TodoWithUser[] = [
-  {
-    id: "1",
-    content: "Buy milk",
-    done: false,
-    author: {
-      name: "John Doe",
-      id: "1",
-    },
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    authorId: "1",
-  },
-  {
-    id: "2",
-    content: "Write good code",
-    done: false,
-    author: {
-      name: "Sally Barker",
-      id: "2",
-    },
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    authorId: "2",
-  },
-  {
-    id: "3",
-    content: "Make A Good Web App",
-    done: true,
-    author: {
-      name: "Yanis Wang",
-      id: "1",
-    },
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    authorId: "3",
-  },
-];
-
 const Todo = () => {
   const { status } = useSession();
   const router = useRouter();
-  // use useQuery advantages like onSuccess onLoading etc.
   const {
     isLoading,
     data: todoItems,
@@ -62,7 +21,7 @@ const Todo = () => {
   } = api.todo.findAll.useQuery();
 
   if (isError) {
-    console.error(error);
+    console.error("error while fetching todos", error);
     return (
       <div className="flex w-full flex-col items-center px-4">
         <p>Something went wrong while trying to fetch todos :( </p>
@@ -78,8 +37,6 @@ const Todo = () => {
       </div>
     );
   }
-
-  console.log("todoItems", todoItems);
 
   if (status === "loading") {
     return <div>Loading...</div>;

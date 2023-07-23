@@ -1,35 +1,74 @@
-import { type Dispatch, useCallback } from "react";
+import { type Dispatch, useCallback, useState } from "react";
 import { Check, X } from "lucide-react";
 
 import { Button } from "~/components/shadcn-ui/button";
 import { Input } from "~/components/shadcn-ui/input";
 import { type TodoWithUser } from "../Todo.type";
-import { type MoreAction } from "./TodoItem";
+import { type MoreAction, type TodoUpdate } from "./TodoItem.type";
 
 type TodoItemEditProps = {
   todoWithUser: TodoWithUser;
   moreReducerDispatch: Dispatch<MoreAction>;
   editRef: React.RefObject<HTMLInputElement>;
+  updateTodo: { mutate: (content: TodoUpdate) => void };
 };
 
 export const TodoItemEdit = ({
   todoWithUser,
   moreReducerDispatch,
   editRef,
+  updateTodo,
 }: TodoItemEditProps) => {
+  const [todoUpdateText, setTodoUpdateText] = useState(todoWithUser);
+
   const handleEditCompleted = useCallback(() => {
-    todoWithUser.content = editRef.current?.value ?? todoWithUser.content;
+    updateTodo.mutate({
+      id: todoUpdateText.id,
+      content: todoUpdateText.content,
+    });
     moreReducerDispatch({ type: "edit", state: false });
-    // TODO: Change the todo in the db
-  }, [editRef, moreReducerDispatch, todoWithUser]);
+  }, [
+    moreReducerDispatch,
+    todoUpdateText.content,
+    todoUpdateText.id,
+    updateTodo,
+  ]);
 
   const handleEditCancelled = useCallback(() => {
     moreReducerDispatch({ type: "edit", state: false });
   }, [moreReducerDispatch]);
 
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        handleEditCompleted();
+      }
+
+      if (e.key === "Escape") {
+        handleEditCancelled();
+      }
+    },
+    [handleEditCancelled, handleEditCompleted]
+  );
+
+  const handleOnChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setTodoUpdateText((prev) => ({
+        ...prev,
+        content: e.target.value,
+      }));
+    },
+    []
+  );
+
   return (
     <div className="flex w-full items-center justify-between px-6 py-2 md:w-2/3 lg:w-2/3 xl:w-1/2">
-      <Input ref={editRef} />
+      <Input
+        ref={editRef}
+        value={todoUpdateText.content}
+        onKeyDown={handleKeyDown}
+        onChange={handleOnChange}
+      />
       <div className="flex">
         <Button
           variant="ghost"
