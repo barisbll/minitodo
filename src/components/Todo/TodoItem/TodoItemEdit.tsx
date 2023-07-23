@@ -19,18 +19,18 @@ export const TodoItemEdit = ({
   editRef,
   updateTodo,
 }: TodoItemEditProps) => {
-  const [todoUpdateText, setTodoUpdateText] = useState(todoWithUser);
+  const [todoUpdateState, setTodoUpdateState] = useState(todoWithUser);
 
   const handleEditCompleted = useCallback(() => {
     updateTodo.mutate({
-      id: todoUpdateText.id,
-      content: todoUpdateText.content,
+      id: todoUpdateState.id,
+      content: todoUpdateState.content,
     });
     moreReducerDispatch({ type: "edit", state: false });
   }, [
     moreReducerDispatch,
-    todoUpdateText.content,
-    todoUpdateText.id,
+    todoUpdateState.content,
+    todoUpdateState.id,
     updateTodo,
   ]);
 
@@ -53,7 +53,7 @@ export const TodoItemEdit = ({
 
   const handleOnChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setTodoUpdateText((prev) => ({
+      setTodoUpdateState((prev) => ({
         ...prev,
         content: e.target.value,
       }));
@@ -65,7 +65,7 @@ export const TodoItemEdit = ({
     <div className="flex w-full items-center justify-between px-6 py-2 md:w-2/3 lg:w-2/3 xl:w-1/2">
       <Input
         ref={editRef}
-        value={todoUpdateText.content}
+        value={todoUpdateState.content}
         onKeyDown={handleKeyDown}
         onChange={handleOnChange}
       />

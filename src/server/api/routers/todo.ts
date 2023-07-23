@@ -18,7 +18,7 @@ export const todoRouter = createTRPCRouter({
   create: protectedProcedure
     .input(z.object({ content: z.string().min(1) }))
     .mutation( async ({ ctx, input }) => {
-      const todo = await ctx.prisma.todo.create({
+      await ctx.prisma.todo.create({
         data: {
           content: input.content,
           done: false,
@@ -29,13 +29,11 @@ export const todoRouter = createTRPCRouter({
           },
         },
       });
-
-      return todo;
     }),
   update: protectedProcedure
     .input(z.object({ id: z.string(), content: z.string()}))
     .mutation(async ({ ctx, input }) => {
-        const todo = await ctx.prisma.todo.update({
+        await ctx.prisma.todo.update({
           where: {
             id: input.id,
           },
@@ -43,8 +41,29 @@ export const todoRouter = createTRPCRouter({
             content: input.content,
           },
         });
+    }),
+  updateDone: protectedProcedure
+    .input(z.object({ id: z.string()}))
+    .mutation(async ({ ctx, input }) => {
+        const foundTodo = await ctx.prisma.todo.findFirst({
+          where: {
+            id: input.id,
+          },
+          select: {
+            done: true,
+          }
+        });
 
-        return todo;
+        if (!foundTodo) throw new Error("Todo not found");
+
+        await ctx.prisma.todo.update({
+          where: {
+            id: input.id,
+          },
+          data: {
+            done: !foundTodo.done ,
+          },
+        });
     }),
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))

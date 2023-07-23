@@ -1,11 +1,4 @@
-import {
-  type Reducer,
-  useReducer,
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
-} from "react";
+import { type Reducer, useReducer, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
@@ -46,12 +39,6 @@ export const TodoItem = (todoWithUser: TodoWithUser) => {
     Reducer<MoreState, MoreAction>
   >(moreReducer, initialState);
 
-  const [checked, setChecked] = useState(todoWithUser.done);
-
-  const handleCheckboxChange = useCallback(() => {
-    setChecked((prev) => !prev);
-  }, []);
-
   const { toast } = useToast();
   const editRef = useRef<HTMLInputElement>(null);
   const utils = api.useContext();
@@ -85,18 +72,17 @@ export const TodoItem = (todoWithUser: TodoWithUser) => {
           );
 
           // Newly updated todo item
-          const newlyUpdatedTodo: TodoWithUser = {
+          const newlyUpdatedTodo = {
             author: {
               name: session?.user?.name ?? "",
               id: session?.user?.id ?? "",
             },
             content,
-            done: checked,
             createdAt: new Date(),
             updatedAt: new Date(),
             id,
             authorId: session?.user?.id ?? "",
-          };
+          } as TodoWithUser;
 
           // add updated todo item to the rest of the todo items (with old index)
           restOfTodos.splice(updatedTodoIndex, 0, newlyUpdatedTodo);
@@ -169,8 +155,6 @@ export const TodoItem = (todoWithUser: TodoWithUser) => {
       moreReducerDispatch={moreReducerDispatch}
       moreState={moreState}
       todoWithUser={todoWithUser}
-      checked={checked}
-      handleCheckboxChange={handleCheckboxChange}
     />
   ) : (
     <TodoItemEdit
