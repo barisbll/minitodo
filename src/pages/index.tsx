@@ -10,7 +10,11 @@ import {
 import { api } from "~/utils/api";
 import { Button } from "~/components/shadcn-ui/button";
 import Link from "next/link";
-import { cn } from "~/lib/utils";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "~/components/shadcn-ui/popover";
 
 const Todo = () => {
   const { status } = useSession();
@@ -34,12 +38,19 @@ const Todo = () => {
             >
               <Link href="/auth">Login</Link>
             </Button>
-            <Button
-              variant="secondary"
-              className="w-[9.375rem] animate-text-fade-in-up-3-delay opacity-0 2xl:w-[10rem]  2xl:text-lg"
-            >
-              Just wonder 👀
-            </Button>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="secondary"
+                  className="w-[9.375rem] animate-text-fade-in-up-3-delay opacity-0 2xl:w-[10rem]  2xl:text-lg"
+                >
+                  Just wonder 👀
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-fit">
+                <p className="text-sm">Coming out soon!</p>
+              </PopoverContent>
+            </Popover>
           </div>
         </div>
       </div>
