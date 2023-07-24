@@ -19,7 +19,7 @@ import {
 const Todo = () => {
   const { status } = useSession();
 
-  // If user isn't logged in and on the main page
+  // If user isn't logged in
   if (status === "loading" || status === "unauthenticated") {
     return (
       <div className="flex items-center justify-center pt-40">

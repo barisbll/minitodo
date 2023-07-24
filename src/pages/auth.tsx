@@ -12,14 +12,12 @@ const AuthShowcase: React.FC = () => {
     { enabled: sessionData?.user !== undefined }
   );
 
-  if (status === "authenticated") {
-    void router.push("/");
-  }
-
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <Button
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
+        onClick={
+          sessionData ? () => void signOut() : () => void signIn("github")
+        }
       >
         {sessionData ? "Sign out" : "Sign in"}
       </Button>
