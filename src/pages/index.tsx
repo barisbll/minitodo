@@ -1,20 +1,15 @@
 import { useSession } from "next-auth/react";
 import { TodoBar } from "~/components/Todo/TodoBar";
 import { TodoList } from "~/components/Todo/TodoList";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "~/components/shadcn-ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { api } from "~/utils/api";
-import { Button } from "~/components/shadcn-ui/button";
+import { Button } from "~/components/ui/button";
 import Link from "next/link";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "~/components/shadcn-ui/popover";
+} from "~/components/ui/popover";
 
 const Todo = () => {
   const { status } = useSession();

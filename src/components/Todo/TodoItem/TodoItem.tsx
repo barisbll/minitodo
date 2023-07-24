@@ -2,7 +2,7 @@ import { type Reducer, useReducer, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
-import { useToast } from "~/components/shadcn-ui/use-toast";
+import { useToast } from "~/components/ui/use-toast";
 import { type TodoWithUser } from "../Todo.type";
 import { TodoItemEdit } from "./TodoItemEdit";
 import { TodoItemNormal } from "./TodoItemNormal";

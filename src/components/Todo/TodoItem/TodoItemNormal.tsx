@@ -1,12 +1,12 @@
 import { useState, type Dispatch, useCallback, useEffect } from "react";
-import { Checkbox } from "~/components/shadcn-ui/checkbox";
+import { Checkbox } from "~/components/ui/checkbox";
 import { cn } from "~/lib/utils";
 
 import { TodoMore } from "../TodoMore";
 import { type TodoWithUser } from "../Todo.type";
 import { type MoreAction, type MoreState } from "./TodoItem.type";
 import { api } from "~/utils/api";
-import { useToast } from "~/components/shadcn-ui/use-toast";
+import { useToast } from "~/components/ui/use-toast";
 
 type TodoItemNormalProps = {
   todoWithUser: TodoWithUser;

@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
-import { Button } from "../shadcn-ui/button";
-import { Input } from "../shadcn-ui/input";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { api } from "~/utils/api";
-import { useToast } from "~/components/shadcn-ui/use-toast";
+import { useToast } from "~/components/ui/use-toast";
 import { type TodoWithUser } from "./Todo.type";
 import { useSession } from "next-auth/react";
 

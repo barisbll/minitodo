@@ -1,5 +1,5 @@
 import { Trash, Pencil, MoreHorizontal, Copy } from "lucide-react";
-import { Button } from "~/components/shadcn-ui/button";
+import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,9 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "~/components/shadcn-ui/dropdown-menu";
+} from "~/components/ui/dropdown-menu";
 import { type Dispatch, useCallback } from "react";
-import { useToast } from "~/components/shadcn-ui/use-toast";
+import { useToast } from "~/components/ui/use-toast";
 
 import { type TodoWithUser } from "./Todo.type";
 import { type MoreState, type MoreAction } from "./TodoItem/TodoItem";

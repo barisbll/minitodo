@@ -1,8 +1,8 @@
 import { type Dispatch, useCallback, useState } from "react";
 import { Check, X } from "lucide-react";
 
-import { Button } from "~/components/shadcn-ui/button";
-import { Input } from "~/components/shadcn-ui/input";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
 import { type TodoWithUser } from "../Todo.type";
 import { type MoreAction, type TodoUpdate } from "./TodoItem.type";
 

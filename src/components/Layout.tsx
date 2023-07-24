@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Header } from "~/sections/Header";
 import { type ReactNode } from "react";
-import { Toaster } from "~/components/shadcn-ui/toaster";
+import { Toaster } from "~/components/ui/toaster";
 
 type LayoutProps = {
   children: ReactNode;

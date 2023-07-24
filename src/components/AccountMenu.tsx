@@ -16,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "./shadcn-ui/dropdown-menu";
+} from "./ui/dropdown-menu";
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import { cn } from "~/lib/utils";

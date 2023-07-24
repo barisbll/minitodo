@@ -1,7 +1,15 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
-import { Button } from "~/components/shadcn-ui/button";
+import { Button } from "~/components/ui/button";
 import { useRouter } from "next/router";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 
 const AuthShowcase: React.FC = () => {
   const { data: sessionData, status } = useSession();
@@ -12,17 +20,7 @@ const AuthShowcase: React.FC = () => {
     { enabled: sessionData?.user !== undefined }
   );
 
-  return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <Button
-        onClick={
-          sessionData ? () => void signOut() : () => void signIn("github")
-        }
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </Button>
-    </div>
-  );
+  return <div className="flex items-center justify-center"></div>;
 };
 
 export default AuthShowcase;
