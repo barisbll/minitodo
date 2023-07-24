@@ -17,7 +17,7 @@ const Auth: React.FC = () => {
             variant="outline"
             className="w-full"
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            onClick={() => signIn("github", { callbackUrl: "/" })}
+            onClick={() => signIn("github", { callbackUrl: "/todos" })}
           >
             <Github className="mr-2 h-4 w-4" />
             <span>Github</span>
