@@ -12,7 +12,7 @@ import { type Dispatch, useCallback } from "react";
 import { useToast } from "~/components/ui/use-toast";
 
 import { type TodoWithUser } from "./Todo.type";
-import { type MoreState, type MoreAction } from "./TodoItem/TodoItem";
+import { type MoreState, type MoreAction } from "./TodoItem/TodoItem.type";
 import { api } from "~/utils/api";
 
 type TodoMoreProps = {

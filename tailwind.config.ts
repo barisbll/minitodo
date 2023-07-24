@@ -65,6 +65,9 @@ module.exports = {
         "text-fade-in-up": {
           from: { opacity: 0, transform: "translateY(2rem)" },
           to: { opacity: 1, transform: "translateY(0)" },
+        },
+        "loading-spin": {
+          to: { transform: "rotate(360deg)" },
         }
       },
       animation: {
@@ -74,6 +77,7 @@ module.exports = {
         "text-fade-in-up-1-delay": "text-fade-in-up 1.5s ease 2s forwards",
         "text-fade-in-up-2-delay": "text-fade-in-up 1s ease 3.7s forwards",
         "text-fade-in-up-3-delay": "text-fade-in-up 1s ease 3.9s forwards",
+        "loading-spin": "loading-spin 1s linear infinite",
       },
     },
   },
