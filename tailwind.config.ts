@@ -62,10 +62,18 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "text-fade-in-up": {
+          from: { opacity: 0, transform: "translateY(2rem)" },
+          to: { opacity: 1, transform: "translateY(0)" },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "text-fade-in-up": "text-fade-in-up 1.5s ease-in-out forwards",
+        "text-fade-in-up-1-delay": "text-fade-in-up 1.5s ease 2s forwards",
+        "text-fade-in-up-2-delay": "text-fade-in-up 1s ease 3.7s forwards",
+        "text-fade-in-up-3-delay": "text-fade-in-up 1s ease 3.9s forwards",
       },
     },
   },

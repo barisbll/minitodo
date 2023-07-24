@@ -1,5 +1,4 @@
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { TodoBar } from "~/components/Todo/TodoBar";
 import { TodoList } from "~/components/Todo/TodoList";
 import {
@@ -9,10 +8,44 @@ import {
   TabsTrigger,
 } from "~/components/shadcn-ui/tabs";
 import { api } from "~/utils/api";
+import { Button } from "~/components/shadcn-ui/button";
+import Link from "next/link";
+import { cn } from "~/lib/utils";
 
 const Todo = () => {
   const { status } = useSession();
-  const router = useRouter();
+
+  // If user isn't logged in and on the main page
+  if (status === "loading" || status === "unauthenticated") {
+    return (
+      <div className="flex items-center justify-center pt-40">
+        <div className="flex flex-col items-center justify-center">
+          <h2 className="animate-text-fade-in-up scroll-m-20 text-4xl font-extralight tracking-wider transition-colors first:mt-0  md:text-5xl 2xl:text-6xl">
+            Welcome to #minitodo
+          </h2>
+          <p className="animate-text-fade-in-up-1-delay scroll-m-20 pt-6 text-xl font-extralight tracking-wider opacity-0 transition-colors first:mt-0  md:text-2xl 2xl:text-3xl">
+            The most minimalistic todo app.{" "}
+            <span className="font-normal">Ever.</span>
+          </p>
+          <div className="flex w-full items-center justify-center gap-8 pt-8">
+            <Button
+              asChild
+              className="w-[9.375rem] animate-text-fade-in-up-2-delay opacity-0 2xl:w-[10rem]  2xl:text-lg"
+            >
+              <Link href="/auth">Login</Link>
+            </Button>
+            <Button
+              variant="secondary"
+              className="w-[9.375rem] animate-text-fade-in-up-3-delay opacity-0 2xl:w-[10rem]  2xl:text-lg"
+            >
+              Just wonder 👀
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const {
     isLoading,
     data: todoItems,
@@ -36,14 +69,6 @@ const Todo = () => {
         <p>Loading...</p>
       </div>
     );
-  }
-
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
-  if (status === "unauthenticated") {
-    void router.push("/auth");
   }
 
   return (

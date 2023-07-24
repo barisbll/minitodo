@@ -38,7 +38,7 @@ export const Header = () => {
     <div className="container my-3 grid h-16 grid-cols-3 grid-rows-1">
       <div className="col-span-1 col-start-2 self-center justify-self-center">
         <h1 className="scroll-m-20  text-4xl font-extrabold tracking-tight transition-all hover:text-[2.5rem] hover:tracking-wide lg:text-5xl hover:lg:text-6xl hover:lg:text-[3.25rem]">
-          #todo
+          #minitodo
         </h1>
       </div>
       <div className="col-span-1 col-start-3 flex items-center gap-x-4 justify-self-end">
