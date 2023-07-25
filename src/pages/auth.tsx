@@ -2,6 +2,7 @@ import { signIn } from "next-auth/react";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Github } from "lucide-react";
+import { FaGoogle } from "react-icons/fa";
 
 const Auth: React.FC = () => {
   return (
@@ -21,6 +22,15 @@ const Auth: React.FC = () => {
           >
             <Github className="mr-2 h-4 w-4" />
             <span>Github</span>
+          </Button>
+          <Button
+            variant="outline"
+            className="mt-4 w-full"
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            onClick={() => signIn("google", { callbackUrl: "/todos" })}
+          >
+            <FaGoogle className="mr-2 h-4 w-4" />
+            <span>Google</span>
           </Button>
         </CardContent>
       </Card>

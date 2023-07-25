@@ -11,8 +11,11 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Head>
-        <title>Todo-T3</title>
-        <meta name="description" content="A Todo app built with t3 stack." />
+        <title>#minitodo</title>
+        <meta
+          name="description"
+          content="The most minimalistic todo application."
+        />
       </Head>
       <Header />
       <div className="flex flex-grow justify-center">{children}</div>
