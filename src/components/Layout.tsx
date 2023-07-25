@@ -17,7 +17,6 @@ export const Layout = ({ children }: LayoutProps) => {
       <Header />
       <div className="flex flex-grow justify-center">{children}</div>
       <Toaster />
-      {/* <AuthShowcase /> */}
     </>
   );
 };
