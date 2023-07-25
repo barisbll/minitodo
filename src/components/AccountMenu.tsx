@@ -1,11 +1,4 @@
-import {
-  Github,
-  Keyboard,
-  LogOut,
-  Settings,
-  Sun,
-  MoonStar,
-} from "lucide-react";
+import { Github, LogOut, Settings, Sun, MoonStar } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -20,6 +13,8 @@ import {
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import { cn } from "~/lib/utils";
+import { useRouter } from "next/router";
+import { useCallback } from "react";
 
 type AccountMenuProps = {
   theme: string | undefined;
@@ -28,6 +23,7 @@ type AccountMenuProps = {
 
 export function AccountMenu({ theme, toggleTheme }: AccountMenuProps) {
   const { data: sessionData } = useSession();
+  const router = useRouter();
 
   return (
     <div className={cn({ hidden: !sessionData?.user })}>
@@ -42,7 +38,7 @@ export function AccountMenu({ theme, toggleTheme }: AccountMenuProps) {
             />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56">
+        <DropdownMenuContent className="w-48">
           <DropdownMenuLabel>
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">
@@ -55,19 +51,17 @@ export function AccountMenu({ theme, toggleTheme }: AccountMenuProps) {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem disabled>
               <Settings className="mr-2 h-4 w-4" />
               <span>Settings</span>
-              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Keyboard className="mr-2 h-4 w-4" />
-              <span>Keyboard shortcuts</span>
-              <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={useCallback(() => {
+              void router.push("https://github.com/barisbll/minitodo");
+            }, [router])}
+          >
             <Github className="mr-2 h-4 w-4" />
             <span>GitHub</span>
           </DropdownMenuItem>
@@ -83,7 +77,6 @@ export function AccountMenu({ theme, toggleTheme }: AccountMenuProps) {
           <DropdownMenuItem onClick={() => void signOut()}>
             <LogOut className="mr-2 h-4 w-4" />
             <span>Log out</span>
-            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
