@@ -2,7 +2,8 @@
 
 The most minimalistic todo app. [minitodo.dev](https://www.minitodo.dev/)
 
-![CleanShot 2023-07-25 at 14 26 55](https://github.com/barisbll/minitodo/assets/40062673/a8dc7750-81c8-4da5-bbb4-46c0bfac69d5)
+![CleanShot 2023-07-25 at 14 32 15](https://github.com/barisbll/minitodo/assets/40062673/ec92d25c-bbfd-4123-904a-2a6bd3a6596f)
+
 
 # Used Technologies
 - nextjs
