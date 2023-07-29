@@ -1,4 +1,12 @@
-import { Github, LogOut, Settings, Sun, MoonStar } from "lucide-react";
+import {
+  Github,
+  LogOut,
+  Settings,
+  Sun,
+  MoonStar,
+  Cookie,
+  CheckCircle,
+} from "lucide-react";
 
 import {
   DropdownMenu,
@@ -7,7 +15,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { useSession, signOut } from "next-auth/react";
@@ -59,11 +66,19 @@ export function AccountMenu({ theme, toggleTheme }: AccountMenuProps) {
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={useCallback(() => {
-              void router.push("https://github.com/barisbll/minitodo");
+              void router.push("/todos");
             }, [router])}
           >
-            <Github className="mr-2 h-4 w-4" />
-            <span>GitHub</span>
+            <CheckCircle className="mr-2 h-4 w-4" />
+            <span>Todos</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={useCallback(() => {
+              void router.push("/privacy");
+            }, [router])}
+          >
+            <Cookie className="mr-2 h-4 w-4" />
+            <span>Privacy Policy</span>
           </DropdownMenuItem>
           <DropdownMenuItem className="md:hidden" onClick={toggleTheme}>
             {theme === "light" ? (
@@ -72,6 +87,15 @@ export function AccountMenu({ theme, toggleTheme }: AccountMenuProps) {
               <MoonStar className="mr-2 h-4 w-4" />
             )}
             <span>Change theme</span>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={useCallback(() => {
+              void router.push("https://github.com/barisbll/minitodo");
+            }, [router])}
+          >
+            <Github className="mr-2 h-4 w-4" />
+            <span>GitHub</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => void signOut()}>
