@@ -21,7 +21,7 @@ const BarisbllSpan = () => {
 const Privacy = () => {
   return (
     <div className="w-full px-10 md:px-16 xl:px-28 2xl:px-48">
-      <h1 className="mt-12 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+      <h1 className="mt-3 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         Privacy Policy
       </h1>
       <p className="pt-1 leading-7 [&:not(:first-child)]:mt-4">
@@ -29,7 +29,7 @@ const Privacy = () => {
         including (todo item creation, read, update and delete)
       </p>
       <p className="leading-7 [&:not(:first-child)]:mt-4">
-        <BarisbllSpan /> is committed to protecting users&apos; privacy and
+        <BarisbllSpan /> is committed to protecting user&apos;s privacy and
         addressing potential privacy concerns. The following information has
         been posted to help you, the consumer, understand what private
         information we collect and how your information is used.

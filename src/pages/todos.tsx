@@ -5,37 +5,50 @@ import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { LoadingSpinner } from "~/components/LoadingSpinner";
+import { useSelector } from "react-redux";
+import { type RootState } from "~/store/store";
+import { type TodoWithUser } from "~/components/Todo/Todo.type";
 
 const Todos = () => {
   const router = useRouter();
+  const role = useSelector((state: RootState) => state.role);
+  console.log("roleState", role);
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
-      void router.push("/auth");
+      if (role.role !== "GUEST") {
+        void router.push("/auth");
+      }
     },
   });
-  const {
-    isLoading,
-    data: todoItems,
-    isError,
-    error,
-  } = api.todo.findAll.useQuery();
 
-  if (isError) {
-    console.error("error while fetching todos", error);
-    return (
-      <div className="flex w-full flex-col items-center px-4">
-        <p>Something went wrong while trying to fetch todos :( </p>
-      </div>
-    );
+  let todoItems: TodoWithUser[] | undefined = undefined;
+
+  if (role.role === "GUEST") {
+    todoItems = [];
   }
 
-  if (isLoading || status === "loading") {
-    return (
-      <div className="absolute inset-1/2 ml-[0rem] mt-[-5rem] w-fit translate-x-[-50%] translate-y-[-50%]">
-        <LoadingSpinner classNames="h-16 w-16" />
-      </div>
-    );
+  if (role.role === "USER") {
+    const { isLoading, data, isError, error } = api.todo.findAll.useQuery();
+
+    if (isError) {
+      console.error("error while fetching todos", error);
+      return (
+        <div className="flex w-full flex-col items-center px-4">
+          <p>Something went wrong while trying to fetch todos :( </p>
+        </div>
+      );
+    }
+
+    if (isLoading || status === "loading") {
+      return (
+        <div className="absolute inset-1/2 ml-[0rem] mt-[-5rem] w-fit translate-x-[-50%] translate-y-[-50%]">
+          <LoadingSpinner classNames="h-16 w-16" />
+        </div>
+      );
+    }
+
+    todoItems = data;
   }
 
   return (
