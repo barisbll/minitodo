@@ -3,6 +3,11 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Github } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "~/components/ui/popover";
 
 const Auth: React.FC = () => {
   return (
@@ -23,15 +28,22 @@ const Auth: React.FC = () => {
             <Github className="mr-2 h-4 w-4" />
             <span>Github</span>
           </Button>
-          <Button
-            variant="outline"
-            className="mt-4 w-full"
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            onClick={() => signIn("google", { callbackUrl: "/todos" })}
-          >
-            <FaGoogle className="mr-2 h-4 w-4" />
-            <span>Google</span>
-          </Button>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className="mt-4 w-full"
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                onClick={() => signIn("google", { callbackUrl: "/todos" })}
+              >
+                <FaGoogle className="mr-2 h-4 w-4" />
+                <span>Google</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-fit">
+              <p className="text-sm">Coming out soon!</p>
+            </PopoverContent>
+          </Popover>
         </CardContent>
       </Card>
     </div>
