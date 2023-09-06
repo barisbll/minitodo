@@ -34,7 +34,8 @@ const Auth: React.FC = () => {
                 variant="outline"
                 className="mt-4 w-full"
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                onClick={() => signIn("google", { callbackUrl: "/todos" })}
+                // onClick={() => signIn("google", { callbackUrl: "/todos" })}
+                disabled
               >
                 <FaGoogle className="mr-2 h-4 w-4" />
                 <span>Google</span>
